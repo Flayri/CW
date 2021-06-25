@@ -1,0 +1,101 @@
+﻿<Window x:Class="_1234.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1234" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" Icon="Icons/Icon1.png"
+        Title="Login" Height="480" Width="400" ResizeMode="NoResize">
+
+    <Grid >
+
+        <Grid x:Name="StartScreenLoginGrid" Margin="40" Visibility="Visible">
+            <StackPanel >
+                <Label Content="Авторизация"  FontSize="30"  HorizontalAlignment="Center"/>
+
+                <TextBox
+                Name="LoginEmailTextBox"
+                Margin="0 10"
+                 FontSize="18"
+                 VerticalAlignment="Top"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 MaxWidth="400" Height="36"
+                 materialDesign:HintAssist.Hint="Электронный адрес"
+                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextFieldTextBoxEnabledComboBox}"  >
+
+                </TextBox>
+                <Border x:Name="BorderLoginAccountEmail" Width="250" Height="2" Background="White" Opacity="0.9"/>
+
+                <PasswordBox
+                    Name="LoginPasswordBox"
+                    Margin="0 15"
+                  FontSize="18"
+                    VerticalAlignment="Top"
+                    IsEnabled="{Binding IsChecked, ElementName=MaterialDesignFilledPasswordFieldPasswordBoxEnabledComboBox}"
+                    materialDesign:HintAssist.Hint="Пароль" RenderTransformOrigin="0.494,0.469" Height="36">
+
+                </PasswordBox>
+                <Border x:Name="BorderLoginAccountPassword" Width="250" Height="2" Background="White" Opacity="0.9"/>
+
+                <Button x:Name="btnLogin" Content="Войти" Margin="60 20 60 0" Foreground="white" FontSize="18" Click="ButtonLogin_Click"  />
+                <Label  HorizontalAlignment="Center">или</Label>
+                <Button x:Name="ButtonIalreadyHaveNotAccount" Content="Регистрация" Margin="60 0" Foreground="white" FontSize="18" Click="ButtonIalreadyHaveNotAccount_Click"   />
+            </StackPanel>
+        </Grid>
+        
+        
+        
+        <Grid x:Name="RegisterGrid" Visibility="Hidden" Margin="40">
+            <StackPanel>
+                <Label Content="Регистрация" Margin="5" FontSize="30"  HorizontalAlignment="Center"/>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Height="61" Margin="0" Width="230">
+
+                    <TextBox x:Name="YourNameRegisterTextBox" Text="Ваше Имя" MaxLength="15" FontFamily="Helvetica"  BorderThickness="0" CaretBrush="Gray" Foreground="Gray" FontSize="17" TextAlignment="Center"  Opacity="0.9" Width="215" Height="25" Margin="12 10 0 0" GotFocus="RegisterYourNameTextBox_GotFocus" TextChanged="RegisterValidation_TextChangedEvent"/>
+                    <Label Content="(?)"   Padding="-70,0,0,0" Margin="-15 0 0 0" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="14" FontWeight="Bold" Foreground="Gray" ToolTipService.InitialShowDelay="1">
+                        <Label.ToolTip>
+                            <ToolTip Placement="Left" HorizontalOffset="-3" VerticalOffset="0" Background="#99B9ED" BorderThickness="0" Opacity="0.95" Height="36" Width="280">
+                                <TextBlock FontFamily="Helvetica" Foreground="Gray" FontSize="13"><Run Text="Имя на русском языке с заглавной буквы"/></TextBlock>
+                            </ToolTip>
+                        </Label.ToolTip>
+                    </Label>
+                </StackPanel>
+                <Border  x:Name="BorderForNameRegisterTextBox" Width="215" Height="2" Background="Gray" Opacity="0.9" Margin="0 -24 0 0"/>
+
+
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
+                    <TextBox  x:Name="EmailRegisterTextBox" Text="Email" MaxLength="35" FontFamily="Helvetica"  BorderThickness="0" CaretBrush="Gray" Foreground="Gray" FontSize="17" TextAlignment="Center" Background="Transparent" Opacity="0.9" Width="215" GotFocus="RegisterEmailTextBox_GotFocus" TextChanged="RegisterValidation_TextChangedEvent" Margin="0,0,0,0"/>
+                    <Label Content="(?)" Grid.Row="0" HorizontalAlignment="Right" Padding="-60,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="Gray" ToolTipService.InitialShowDelay="1">
+                        <Label.ToolTip>
+                            <ToolTip Placement="Left" HorizontalOffset="-3" VerticalOffset="0" Background="#99B9ED" BorderThickness="0" Opacity="0.95" Height="36" Width="220">
+                                <TextBlock FontFamily="Helvetica" Foreground="Gray" FontSize="13">Email в формате email@email.com</TextBlock>
+                            </ToolTip>
+                        </Label.ToolTip>
+                    </Label>
+                </StackPanel>
+                <Border x:Name="BorderForEmailRegisterTextBox" Width="215" Height="2" Background="Gray" Opacity="0.9" Margin="0 -18 0 0"/>
+
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0">
+                    <TextBox  x:Name="PasswordRegisterTextBox" Text="Пароль" MaxLength="15" FontFamily="Helvetica"  BorderThickness="0" CaretBrush="Gray" Foreground="Gray" FontSize="17" TextAlignment="Center" Background="Transparent" Opacity="0.9" Width="215" Height="25" Margin="0 10 0 0" GotFocus="RegisterPasswordTextBox_GotFocus" TextChanged="RegisterValidation_TextChangedEvent"/>
+                    <Label Content="(?)" Grid.Row="0" HorizontalAlignment="Right" Padding="-60,0,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="Gray" ToolTipService.InitialShowDelay="1">
+                        <Label.ToolTip>
+                            <ToolTip Placement="Left" HorizontalOffset="-3" VerticalOffset="0" Background="#99B9ED" BorderThickness="0" Opacity="0.95" Height="36" Width="320">
+                                <TextBlock FontFamily="Helvetica" Foreground="Gray" FontSize="13">Только латинские буквы и цифыр (от 5 символов)</TextBlock>
+                            </ToolTip>
+                        </Label.ToolTip>
+                    </Label>
+
+                </StackPanel>
+                <Border x:Name="BorderForPasswordRegisterTextBox" Width="215" Height="2" Background="Gray" Opacity="0.9" Margin="0"/>
+
+                <Button x:Name="ButtonRegisterAccount" Margin="50 20 50 0" Click="ButtonRegisterAccount_Click" >
+                    <TextBlock TextAlignment="Center" Text="Зарегистрироваться" FontSize="13" Foreground="White"/>
+                </Button>
+                <Label HorizontalAlignment="Center">Или</Label>
+                <Button Margin="50 0" Click="ButtonIalreayHaveAnAccount_Click" >
+                    <TextBlock TextAlignment="Center" Text="Авторизация" FontSize="13" Foreground="White"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

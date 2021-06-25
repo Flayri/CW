@@ -1,0 +1,109 @@
+﻿<Window x:Class="_1234.AddItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1234"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="600"
+        Width="300"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Loaded="DisableAddBtn_WindowLoadedEvent"
+        >
+    <Grid>
+        <Grid x:Name="titleBar" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="300" Background="#272f3c">
+            <Label Content="Добавление новой записи" HorizontalAlignment="Left" Margin="4,3,0,0" VerticalAlignment="Top" FontSize="14" Foreground="#ffffff"/>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                    ToolTip="MaterialDesignFloatingActionMiniLightButton" x:Name="buttonClose" HorizontalAlignment="Left"  Margin="267,2.5,0,0" VerticalAlignment="Top" Height="30" Width="30"  Click="ButtonCloseWindow_Click">
+                <materialDesign:PackIcon Kind="Close"  />
+            </Button>
+        </Grid>
+        <Grid x:Name="gridClients" HorizontalAlignment="Left" Height="565" Margin="0,35,0,0" VerticalAlignment="Top" Width="300" Background="white">
+            <Border BorderBrush="#272f3c" BorderThickness="1,0,1,1" HorizontalAlignment="Left" Height="564" VerticalAlignment="Top" Width="300"/>
+
+            <!--1-->
+            <Label Content="Наименование *" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,10,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">Любые символы</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <TextBox x:Name="textBoxInventItemsName" MaxLength="25" HorizontalAlignment="Left" Height="30" Margin="10,40,0,0" VerticalAlignment="Top" Width="280"  TextChanged="Validation_TextChangedEvent"/>
+
+            <!--2-->
+            <Label Content="Количество" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,80,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">Только цифры</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <TextBox x:Name="textBoxItemsAmmount" MaxLength="9" HorizontalAlignment="Left" Height="30" Margin="10,110,0,0" VerticalAlignment="Top" Width="280"  TextChanged="Validation_TextChangedEvent" PreviewTextInput="TextBoxAllowOnlyDigits_PreviewTextInput" />
+
+            <!--3-->
+            <Label Content="Цена ($)" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,150,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">Только цифры</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <TextBox x:Name="textBoxInventItemsPrice" MaxLength="9" HorizontalAlignment="Left" Height="30" Margin="10,180,0,0" VerticalAlignment="Top" Width="280" TextChanged="Validation_TextChangedEvent" PreviewTextInput="TextBoxAllowOnlyDigits_PreviewTextInput" />
+
+            <!--4-->
+            <Label Content="Дата покупки" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,220,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">ДД.ММ.ГГГГ</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <TextBox x:Name="textBoxItemsBuyDate" MaxLength="10" HorizontalAlignment="Left" Height="30" Margin="10,250,0,0" VerticalAlignment="Top" Width="280" TextChanged="Validation_TextChangedEvent"/>
+
+            <!--5-->
+            <Label Content="Срок службы (месяцев)" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,290,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">Только цифры</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <TextBox x:Name="textBoxItemsLifeTime" MaxLength="5" HorizontalAlignment="Left" Height="30" Margin="10,320,0,0" VerticalAlignment="Top" Width="280"  TextChanged="Validation_TextChangedEvent" PreviewTextInput="TextBoxAllowOnlyDigits_PreviewTextInput" />
+
+            <!--5-->
+            <Label Content="Ответственное лицо" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,290,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">Только цифры</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <ComboBox x:Name="comboBoxItrmsResponsibleHuman" IsEditable="True" HorizontalAlignment="Left"  Height="30" Margin="10,390,0,0" VerticalAlignment="Top" Width="280" Background="white"/>
+
+            <!--6-->
+            <Label Content="Категория" HorizontalAlignment="Left" Margin="10,430,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,290,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">Только цифры</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <ComboBox x:Name="comboBoxItemsCategory" IsEditable="True" HorizontalAlignment="Left" Height="30" Margin="10,460,0,0" VerticalAlignment="Top" Width="280" Background="White"/>
+
+
+            <Button x:Name="ButtonAdd" Content="ДОБАВИТЬ" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="155,510,0,0" VerticalAlignment="Top" Foreground="#ffffff" Width="135" Height="35" Click="ButtonAdd_Click" />
+            <Button x:Name="ButtonCancel" Content="ОТМЕНА" HorizontalAlignment="Left"  Margin="10,510,0,0"  VerticalAlignment="Top" Width="135"  Height="35" Foreground="#ffffff" Click="ButtonCloseWindow_Click" />
+        </Grid>
+    </Grid>
+</Window>

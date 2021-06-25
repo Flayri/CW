@@ -1,0 +1,65 @@
+﻿<Window x:Class="_1234.AddEmployeeWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1234"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="325"
+        Width="300"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Loaded="DisableAddBtn_WindowLoadedEvent"
+        >
+    <Grid>
+        <Grid x:Name="titleBar" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="300" Background="#272f3c">
+            <Label Content="Добавление нового сотрудника" HorizontalAlignment="Left" Margin="4,3,0,0" VerticalAlignment="Top" FontSize="14" Foreground="#ffffff"/>
+            <Button  Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                    ToolTip="MaterialDesignFloatingActionMiniLightButton" x:Name="buttonClose" HorizontalAlignment="Left"  Margin="267,2.5,0,0" VerticalAlignment="Top" Height="30" Width="30"  Click="ButtonCloseWindow_Click">
+                <materialDesign:PackIcon Kind="Close"  />
+            </Button>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="290" Margin="0,35,0,-0.2" VerticalAlignment="Top" Width="300" Background="white">
+            <Border BorderBrush="#272f3c" BorderThickness="1,0,1,1" HorizontalAlignment="Left" Height="290" VerticalAlignment="Top" Width="300"/>
+
+            <!--1-->
+            <Label Content="Имя Фамилия *" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,10,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">Иван Иванов</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <TextBox x:Name="textBoxEmployeeName" MaxLength="25" HorizontalAlignment="Left" Height="30" Margin="10,40,0,0" VerticalAlignment="Top" Width="280" TextChanged="Validation_TextChangedEvent"/>
+
+            <!--2-->
+            <Label Content="Телефон" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left" Margin="264,80,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">+375 (17|29|33|44) XXX-XX-XX</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <TextBox x:Name="textBoxEmployeePhone" MaxLength="25" HorizontalAlignment="Left" Height="30" Margin="10,110,0,0" VerticalAlignment="Top" Width="280"  TextChanged="Validation_TextChangedEvent"/>
+
+            <!--3-->
+            <Label Content="Email" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#6f7a8b"/>
+            <Label Content="(?)" HorizontalAlignment="Left"  Margin="264,150,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="#1e90ff" ToolTipService.InitialShowDelay="1">
+                <Label.ToolTip>
+                    <ToolTip Placement="Left" HorizontalOffset="24" VerticalOffset="32" Background="#1e90ff" BorderThickness="0" Opacity="0.9" Height="36" Width="276">
+                        <TextBlock Foreground="#ffffff" FontSize="13">email@email.com</TextBlock>
+                    </ToolTip>
+                </Label.ToolTip>
+            </Label>
+            <TextBox x:Name="textBoxEmployeeEmail" MaxLength="25" HorizontalAlignment="Left" Height="30"  Margin="10,180,0,0" VerticalAlignment="Top" Width="280"  TextChanged="Validation_TextChangedEvent"/>
+
+
+            <Button x:Name="ButtonAdd" Content="ДОБАВИТЬ" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="155,230,0,0" VerticalAlignment="Top" Foreground="#ffffff" Width="135"  Height="35" Click="ButtonAdd_Click" />
+            <Button x:Name="ButtonCancel" Content="ОТМЕНА" HorizontalAlignment="Left"  Margin="10,230,0,0"  VerticalAlignment="Top" Width="135" Foreground="#ffffff"  Height="35" Click="ButtonCloseWindow_Click" />
+        </Grid>
+    </Grid>
+</Window>

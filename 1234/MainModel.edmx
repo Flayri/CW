@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Warehouse" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="ID_Employee" />
+          </Key>
+          <Property Name="ID_Employee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID_item" />
+          </Key>
+          <Property Name="ID_item" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Ammount" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="LifeTime" Type="int" />
+          <Property Name="BuyDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="OffDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="FK_ResponsibleEmployee" Type="int" />
+          <Property Name="FK_Category" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Warehouse.dbo.CategoriesView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="CategoriesView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Категория" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Категория" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Описание" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Warehouse.dbo.EmployeeView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="EmployeeView">
+          <Key>
+            <PropertyRef Name="№" />
+            <PropertyRef Name="Сотрудник" />
+          </Key>
+          <Property Name="№" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Сотрудник" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Телефон" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Warehouse.dbo.ItemsView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="ItemsView">
+          <Key>
+            <PropertyRef Name="№" />
+            <PropertyRef Name="Наименование" />
+          </Key>
+          <Property Name="№" Type="int" Nullable="false" />
+          <Property Name="Наименование" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Кол-во" Type="int" />
+          <Property Name="Цена" Type="int" />
+          <Property Name="Дата" Type="nvarchar" MaxLength="50" />
+          <Property Name="Срок" Type="int" />
+          <Property Name="Дата списания" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ответственный" Type="nvarchar" MaxLength="300" />
+          <Property Name="Категория" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_InventItems_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="FK_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="FK_ResponsibleEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище WarehouseContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriesView" EntityType="Self.CategoriesView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CategoriesView].[ID] AS [ID], 
+    [CategoriesView].[Категория] AS [Категория], 
+    [CategoriesView].[Описание] AS [Описание]
+    FROM [dbo].[CategoriesView] AS [CategoriesView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmployeeView" EntityType="Self.EmployeeView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeeView].[№] AS [№], 
+    [EmployeeView].[Сотрудник] AS [Сотрудник], 
+    [EmployeeView].[Телефон] AS [Телефон], 
+    [EmployeeView].[Email] AS [Email]
+    FROM [dbo].[EmployeeView] AS [EmployeeView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ItemsView" EntityType="Self.ItemsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ItemsView].[№] AS [№], 
+    [ItemsView].[Наименование] AS [Наименование], 
+    [ItemsView].[Кол-во] AS [Кол-во], 
+    [ItemsView].[Цена] AS [Цена], 
+    [ItemsView].[Дата] AS [Дата], 
+    [ItemsView].[Срок] AS [Срок], 
+    [ItemsView].[Дата списания] AS [Дата списания], 
+    [ItemsView].[Ответственный] AS [Ответственный], 
+    [ItemsView].[Категория] AS [Категория]
+    FROM [dbo].[ItemsView] AS [ItemsView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_InventItems_Categories" Association="Self.FK_InventItems_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Employees" Association="Self.FK_Items_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Warehouse" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_InventItems_Categories" FromRole="Categories" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="ID_Employee" />
+          </Key>
+          <Property Name="ID_Employee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Items_Employees" FromRole="Employees" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID_item" />
+          </Key>
+          <Property Name="ID_item" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ammount" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="LifeTime" Type="Int32" />
+          <Property Name="BuyDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OffDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FK_ResponsibleEmployee" Type="Int32" />
+          <Property Name="FK_Category" Type="Int32" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_InventItems_Categories" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Items_Employees" FromRole="Items" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoriesView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Категория" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Категория" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EmployeeView">
+          <Key>
+            <PropertyRef Name="C_" />
+            <PropertyRef Name="Сотрудник" />
+          </Key>
+          <Property Name="C_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Сотрудник" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Телефон" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ItemsView">
+          <Key>
+            <PropertyRef Name="C_" />
+            <PropertyRef Name="Наименование" />
+          </Key>
+          <Property Name="C_" Type="Int32" Nullable="false" />
+          <Property Name="Наименование" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Кол_во" Type="Int32" />
+          <Property Name="Цена" Type="Int32" />
+          <Property Name="Дата" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Срок" Type="Int32" />
+          <Property Name="Дата_списания" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ответственный" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Категория" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_InventItems_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="FK_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="ID_Employee" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="FK_ResponsibleEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WarehouseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Items" EntityType="Self.Items" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="CategoriesView" EntityType="Self.CategoriesView" />
+          <EntitySet Name="EmployeeView" EntityType="Self.EmployeeView" />
+          <EntitySet Name="ItemsView" EntityType="Self.ItemsView" />
+          <AssociationSet Name="FK_InventItems_Categories" Association="Self.FK_InventItems_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Employees" Association="Self.FK_Items_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище WarehouseContainer" CdmEntityContainer="WarehouseEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="Warehouse.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Warehouse.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="Warehouse.Items">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ID_item" ColumnName="ID_item" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="LifeTime" ColumnName="LifeTime" />
+                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+                <ScalarProperty Name="OffDate" ColumnName="OffDate" />
+                <ScalarProperty Name="FK_ResponsibleEmployee" ColumnName="FK_ResponsibleEmployee" />
+                <ScalarProperty Name="FK_Category" ColumnName="FK_Category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Warehouse.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoriesView">
+            <EntityTypeMapping TypeName="Warehouse.CategoriesView">
+              <MappingFragment StoreEntitySet="CategoriesView">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Категория" ColumnName="Категория" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeView">
+            <EntityTypeMapping TypeName="Warehouse.EmployeeView">
+              <MappingFragment StoreEntitySet="EmployeeView">
+                <ScalarProperty Name="C_" ColumnName="№" />
+                <ScalarProperty Name="Сотрудник" ColumnName="Сотрудник" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemsView">
+            <EntityTypeMapping TypeName="Warehouse.ItemsView">
+              <MappingFragment StoreEntitySet="ItemsView">
+                <ScalarProperty Name="C_" ColumnName="№" />
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+                <ScalarProperty Name="Кол_во" ColumnName="Кол-во" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Дата" ColumnName="Дата" />
+                <ScalarProperty Name="Срок" ColumnName="Срок" />
+                <ScalarProperty Name="Дата_списания" ColumnName="Дата списания" />
+                <ScalarProperty Name="Ответственный" ColumnName="Ответственный" />
+                <ScalarProperty Name="Категория" ColumnName="Категория" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
